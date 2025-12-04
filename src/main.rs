@@ -36,6 +36,17 @@ fn add_to_ngram_table(ngram_table: &mut HashMap<Vec<String>, usize>, sentence: &
     }
 }
 
+fn export_hashmap(ngram_table: &HashMap<Vec<String>, usize>, target_file: &str) {
+    let mut exportable: HashMap<String, usize> = HashMap::new();
+    for (key_vec, count) in ngram_table{
+        let key_str = key_vec.join(" ");
+        exportable.insert(key_str, *count);
+    }
+    
+    let json_str = serde_json::to_string_pretty(&exportable).expect("Couldn't convert HashMap to str. Why? idk :)");
+    std::fs::write(target_file, json_str).expect("Couldn't save to json. Why? idk :)");
+}
+
 fn main() -> Result<()> {
     const N_GRAM_ORD: u8 = 3;
 
@@ -52,10 +63,10 @@ fn main() -> Result<()> {
     for sentence in data_raw {
         println!("The sentence yagesyak {sentence}");
         add_to_ngram_table(&mut ngram_table, sentence, N_GRAM_ORD);
-        println!("{:?}", ngram_table);
-        break;
     }
-
+    
+    let target_file = "duar.json";
+    export_hashmap(&ngram_table, target_file);
 
     Ok(())
 }
