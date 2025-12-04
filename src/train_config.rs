@@ -4,5 +4,5 @@ use serde::Deserialize;
 pub struct TrainConfig {
     pub data_path: String,
     pub n: usize,
-    pub output:String,
+    pub output: String,
 }
