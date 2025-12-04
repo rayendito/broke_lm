@@ -6,8 +6,6 @@ use std::collections::HashMap;
 use train_config::TrainConfig;
 
 fn append_bos_eos(sentence: &str, n: u8) -> String {
-    // assuming string is stripped away already, so we add the EOS and BOS with additional space
-    // 
     const BOS_TOKEN_SPACE: &str = "<s> ";
     const SPACE_EOS_TOKEN: &str = " </s>";
 
@@ -36,7 +34,7 @@ fn add_to_ngram_table(ngram_table: &mut HashMap<Vec<String>, usize>, sentence: &
     }
 }
 
-fn export_hashmap(ngram_table: &HashMap<Vec<String>, usize>, target_file: &str) {
+fn export_hashmap(ngram_table: &HashMap<Vec<String>, usize>, target_file: &String) {
     let mut exportable: HashMap<String, usize> = HashMap::new();
     for (key_vec, count) in ngram_table{
         let key_str = key_vec.join(" ");
@@ -48,8 +46,6 @@ fn export_hashmap(ngram_table: &HashMap<Vec<String>, usize>, target_file: &str) 
 }
 
 fn main() -> Result<()> {
-    const N_GRAM_ORD: u8 = 3;
-
     let train_config_raw = fs::read_to_string("train_config.toml")?;
     let train_cfg: TrainConfig = toml::from_str(&train_config_raw)?;
     println!("Loaded config {:?}", train_cfg);
@@ -61,11 +57,10 @@ fn main() -> Result<()> {
     let mut ngram_table: HashMap<Vec<String>, usize> = HashMap::new();
     
     for sentence in data_raw {
-        add_to_ngram_table(&mut ngram_table, sentence, N_GRAM_ORD);
+        add_to_ngram_table(&mut ngram_table, sentence, train_cfg.n);
     }
     
-    let target_file = "duar.json";
-    export_hashmap(&ngram_table, target_file);
+    export_hashmap(&ngram_table, &train_cfg.model_output_path);
 
     Ok(())
 }
