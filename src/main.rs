@@ -1,39 +1,61 @@
 mod train_config;
 
+use std::fs;
 use anyhow::Result;
 use std::collections::HashMap;
-use std::fs;
 use train_config::TrainConfig;
 
-fn tokenize(text: &str, n: usize) -> Vec<String> {
-    text.split_whitespace().map(|s| s.to_string()).collect()
+fn append_bos_eos(sentence: &str, n: u8) -> String {
+    // assuming string is stripped away already, so we add the EOS and BOS with additional space
+    // 
+    const BOS_TOKEN_SPACE: &str = "<s> ";
+    const SPACE_EOS_TOKEN: &str = " </s>";
+
+    let mut appended = String::from("");
+    for _ in 0..(n-1){
+        appended.push_str(BOS_TOKEN_SPACE);
+    }
+    appended.push_str(sentence);
+    appended.push_str(SPACE_EOS_TOKEN);
+    appended
 }
 
-// fn count_ngrams(tokens: &Vec<String>, n: usize) -> HashMap<Vec<String>, usize> {
+fn tokenize(sentence: &String) -> Vec<String> {
+    sentence.split_whitespace().map(|s| s.to_string()).collect()
+}
 
-// }
+fn add_to_ngram_table(ngram_table: &mut HashMap<Vec<String>, usize>, sentence: &str, n: u8) {
+    assert!(n > 0, "n must be at least 1 for n-grams");
+    
+    let bos_eos_appended: String = append_bos_eos(sentence, n);
+    let tokenized: Vec<String> = tokenize(&bos_eos_appended);
+    
+    for gram in tokenized.windows(n as usize) {
+        let key: Vec<String> = gram.to_vec(); // convert &[String] → Vec<String>
+        *ngram_table.entry(key).or_insert(0) += 1;
+    }
+}
 
 fn main() -> Result<()> {
+    const N_GRAM_ORD: u8 = 3;
+
     let train_config_raw = fs::read_to_string("train_config.toml")?;
     let train_cfg: TrainConfig = toml::from_str(&train_config_raw)?;
     println!("Loaded config {:?}", train_cfg);
-    println!("Printing {} so it silences the warning", train_cfg.n);
-    println!("Printing {} so it silences the warning", train_cfg.output);
 
-    let data_raw = fs::read_to_string(&train_cfg.data_path)?
-        .lines()
-        .filter(|line| !line.trim().is_empty())
-        .collect::<Vec<_>>();
-
-    println!("First few lines of data_raw");
-    for line in data_raw.lines().take(5) {
-        println!("{}", line);
+    // python one liners don't work because someone needs to own the thing always
+    let contents = fs::read_to_string(&train_cfg.data_path)?;
+    let data_raw = contents.lines().filter(|line| !line.trim().is_empty());
+    
+    let mut ngram_table: HashMap<Vec<String>, usize> = HashMap::new();
+    
+    for sentence in data_raw {
+        println!("The sentence yagesyak {sentence}");
+        add_to_ngram_table(&mut ngram_table, sentence, N_GRAM_ORD);
+        println!("{:?}", ngram_table);
+        break;
     }
 
-    let tokens = tokenize(&data_raw);
-    for tok in tokens.iter().take(5) {
-        println!("{}", tok);
-    }
 
     Ok(())
 }
