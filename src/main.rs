@@ -61,7 +61,6 @@ fn main() -> Result<()> {
     let mut ngram_table: HashMap<Vec<String>, usize> = HashMap::new();
     
     for sentence in data_raw {
-        println!("The sentence yagesyak {sentence}");
         add_to_ngram_table(&mut ngram_table, sentence, N_GRAM_ORD);
     }
     
