@@ -1,14 +1,28 @@
 use std::fs;
-use anyhow::Result;
 use std::collections::HashMap;
+use anyhow::Result;
+use clap::{Parser, Subcommand};
 
 mod train_utils;
-use train_utils::TrainConfig;
-use train_utils::add_to_ngram_table;
-use train_utils::export_hashmap;
+use train_utils::{TrainConfig, add_to_ngram_table, export_hashmap};
+
+#[derive(Parser)]
+struct Cli {
+    #[command(subcommand)]
+    command : Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    Estimate {},
+    Query {
+        #[arg(long)]
+        prompt : String,
+    },
+}
 
 
-fn main() -> Result<()> {
+fn estimate() -> Result<()> {
     let train_config_raw = fs::read_to_string("train_config.toml")?;
     let train_cfg: TrainConfig = toml::from_str(&train_config_raw)?;
     println!("Loaded config {:?}", train_cfg);
@@ -24,6 +38,24 @@ fn main() -> Result<()> {
     }
     
     export_hashmap(&ngram_table, &train_cfg.model_output_path);
-
+    
     Ok(())
+}
+
+// fn query(input_string : String) -> f32 {
+
+// }
+
+fn main() -> Result<()> {
+    let cli = Cli::parse();
+    match cli.command {
+        Commands::Estimate {} => {
+            println!("Estimating language model...");
+            estimate()
+        }
+        Commands::Query { prompt } => {
+            println!("prompt inputted {}", prompt);
+            Ok(())
+        }
+    }
 }
