@@ -9,3 +9,5 @@ toml = "0.7"
 anyhow = "1.0"
 serde_json = "1.0.145"
 clap = { version = "4.5.53", features = ["derive"] }
+trie-rs = "0.4.2"
+bincode = "1"
