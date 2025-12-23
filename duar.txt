@@ -1,0 +1,765 @@
+Training/estimating language model...
+Training hashmap
+Loaded config TrainConfig { data_path: "data/dummy.txt", n: 3, model_name: "model" }
+Training trie
+Trie {
+    louds: Louds {
+        lbs: Fid {
+            byte_vec: [
+                191,
+                253,
+                245,
+                94,
+                235,
+                189,
+                122,
+                245,
+                107,
+                222,
+                170,
+                171,
+                170,
+                170,
+                170,
+                250,
+                128,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
+            bit_len: 175,
+            chunks: Chunks {
+                chunks: [
+                    Chunk {
+                        value: 37,
+                        blocks: Blocks {
+                            blocks: [
+                                Block {
+                                    value: 2,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 5,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 8,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 11,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 13,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 16,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 20,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 21,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 24,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 26,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 28,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 30,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 32,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 35,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 37,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 39,
+                                    length: 3,
+                                },
+                            ],
+                            blocks_cnt: 17,
+                        },
+                    },
+                    Chunk {
+                        value: 69,
+                        blocks: Blocks {
+                            blocks: [
+                                Block {
+                                    value: 3,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 5,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 7,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 9,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 11,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 13,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 14,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 17,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 19,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 22,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 23,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 25,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 26,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 28,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 29,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 32,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 33,
+                                    length: 3,
+                                },
+                            ],
+                            blocks_cnt: 17,
+                        },
+                    },
+                    Chunk {
+                        value: 87,
+                        blocks: Blocks {
+                            blocks: [
+                                Block {
+                                    value: 2,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 3,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 5,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 6,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 8,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 9,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 11,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 13,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 16,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 17,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 18,
+                                    length: 3,
+                                },
+                            ],
+                            blocks_cnt: 17,
+                        },
+                    },
+                    Chunk {
+                        value: 87,
+                        blocks: Blocks {
+                            blocks: [
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 3,
+                                },
+                                Block {
+                                    value: 0,
+                                    length: 1,
+                                },
+                            ],
+                            blocks_cnt: 10,
+                        },
+                    },
+                ],
+                chunks_cnt: 4,
+            },
+            table: PopcountTable {
+                bit_length: 3,
+                table: [
+                    0,
+                    1,
+                    1,
+                    2,
+                    1,
+                    2,
+                    2,
+                    3,
+                ],
+            },
+        },
+    },
+    trie_labels: [
+        TrieLabel {
+            label: "<s>",
+            value: None,
+        },
+        TrieLabel {
+            label: "a",
+            value: None,
+        },
+        TrieLabel {
+            label: "b",
+            value: None,
+        },
+        TrieLabel {
+            label: "d",
+            value: None,
+        },
+        TrieLabel {
+            label: "e",
+            value: None,
+        },
+        TrieLabel {
+            label: "i",
+            value: None,
+        },
+        TrieLabel {
+            label: "l",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "o",
+            value: None,
+        },
+        TrieLabel {
+            label: "r",
+            value: None,
+        },
+        TrieLabel {
+            label: "t",
+            value: None,
+        },
+        TrieLabel {
+            label: "w",
+            value: None,
+        },
+        TrieLabel {
+            label: "<s>",
+            value: None,
+        },
+        TrieLabel {
+            label: "a",
+            value: None,
+        },
+        TrieLabel {
+            label: "b",
+            value: None,
+        },
+        TrieLabel {
+            label: "i",
+            value: None,
+        },
+        TrieLabel {
+            label: "t",
+            value: None,
+        },
+        TrieLabel {
+            label: "t",
+            value: None,
+        },
+        TrieLabel {
+            label: "e",
+            value: None,
+        },
+        TrieLabel {
+            label: "e",
+            value: None,
+        },
+        TrieLabel {
+            label: "a",
+            value: None,
+        },
+        TrieLabel {
+            label: "d",
+            value: None,
+        },
+        TrieLabel {
+            label: "l",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "c",
+            value: None,
+        },
+        TrieLabel {
+            label: "d",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "l",
+            value: None,
+        },
+        TrieLabel {
+            label: "d",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "t",
+            value: None,
+        },
+        TrieLabel {
+            label: "m",
+            value: None,
+        },
+        TrieLabel {
+            label: "p",
+            value: None,
+        },
+        TrieLabel {
+            label: "r",
+            value: None,
+        },
+        TrieLabel {
+            label: "w",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "e",
+            value: None,
+        },
+        TrieLabel {
+            label: "i",
+            value: None,
+        },
+        TrieLabel {
+            label: "o",
+            value: None,
+        },
+        TrieLabel {
+            label: "t",
+            value: None,
+        },
+        TrieLabel {
+            label: "n",
+            value: None,
+        },
+        TrieLabel {
+            label: "a",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "b",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "i",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "t",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "t",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "e",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "d",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "n",
+            value: Some(
+                3,
+            ),
+        },
+        TrieLabel {
+            label: "o",
+            value: Some(
+                4,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "e",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "o",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "t",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "d",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "l",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "n",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "a",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "l",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "d",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "e",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "n",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "t",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "o",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "n",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "n",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "c",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                2,
+            ),
+        },
+        TrieLabel {
+            label: "m",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "p",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "r",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "w",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "i",
+            value: Some(
+                1,
+            ),
+        },
+        TrieLabel {
+            label: "</s>",
+            value: Some(
+                1,
+            ),
+        },
+    ],
+}
