@@ -2,10 +2,10 @@ use anyhow::Result;
 use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
-use trie_rs::map::TrieBuilder;
+use broke_lm::Trie;
 
 mod train_utils;
-use train_utils::{TrainConfig, add_to_ngram_table, export_hashmap, print_debug_trie};
+use train_utils::{TrainConfig, add_to_ngram_table, export_hashmap};
 
 mod query_utils;
 use query_utils::load_model_hashmap;
@@ -45,12 +45,11 @@ fn train_hashmap() -> Result<()> {
 
 fn train_trie() -> Result<()> {
     let model: HashMap<Vec<String>, usize> = load_model_hashmap()?; // get grams from hashmap
-    let mut builder = TrieBuilder::<String, usize>::new();
+    let mut trie = Trie::new();
     for (ngram, count) in &model {
-        builder.push(ngram, *count)
+        trie.insert(ngram, *count);
     }
-    let trie = builder.build();
-    print_debug_trie(&trie);
+    trie.debug_print();
     Ok(())
 }
 

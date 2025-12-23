@@ -1,7 +1,6 @@
 use anyhow::Result;
 use serde::Deserialize;
 use std::collections::HashMap;
-use trie_rs::map::Trie;
 
 #[derive(Deserialize, Debug)]
 pub struct TrainConfig {
@@ -56,8 +55,4 @@ pub fn export_hashmap(
     std::fs::write(format!("{model_name}_hashmap.bin"), map_bytes)?;
 
     Ok(())
-}
-
-pub fn print_debug_trie(trie: &Trie::<String, usize>) {
-    dbg!(trie);
 }
