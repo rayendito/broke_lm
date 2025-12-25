@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::collections::VecDeque;
 
 #[derive(Debug)]
 pub struct Trie {
@@ -8,6 +9,7 @@ pub struct Trie {
 #[derive(Debug)]
 struct Node {
     children: HashMap<String, usize>,
+    fail : usize,
     value : Option<usize>
 }
 
@@ -15,6 +17,7 @@ impl Trie {
     pub fn new() -> Self {
         let root = Node {
             children: HashMap::new(),
+            fail : 0,
             value : None,
         };
 
@@ -42,6 +45,7 @@ impl Trie {
 
                     self.nodes.push(Node {
                         children: HashMap::new(),
+                        fail: 0, // we'll update these during inference
                         value: None // we'll mark it's value last
                     });
 
@@ -54,6 +58,44 @@ impl Trie {
         self.nodes[current].value = Some(value);
     }
 
+    pub fn build_failures(&mut self) {
+        let mut queue = VecDeque::<usize>::new();
+        let root = 0;
+        let root_children_idxs: Vec<usize> = self.nodes[root].children.values().copied().collect();
+        
+        for c_idx in root_children_idxs {
+            self.nodes[c_idx].fail = root; // all immediate child from root fails to root
+            queue.push_back(c_idx); // initialize BFS traversal
+        }
+
+        while let Some(v) = queue.pop_front() {
+            let v_fail = self.nodes[v].fail;
+            let transitions: Vec<(String, usize)> = self.nodes[v]
+                .children
+                .iter()
+                .map(|(k, &u)| (k.clone(), u))
+                .collect();
+
+            // finding failure link for u
+            for (label, u) in transitions {
+                let mut f = v_fail; // initialize failure value for u, we set it the same as v
+
+                while f != root && !self.nodes[f].children.contains_key(&label){
+                    f = self.nodes[f].fail;
+                }
+
+                if let Some(&next) = self.nodes[f].children.get(&label) {
+                    self.nodes[u].fail = next;
+                }
+                else{
+                    self.nodes[u].fail = root;
+                }
+
+                queue.push_back(u);
+            }
+        }
+    }
+
     pub fn debug_print(&self) {
         self.debug_print_recurse(0, 0);
     }
@@ -64,7 +106,7 @@ impl Trie {
             for _ in 0..indent{
                 print!("  ");
             }
-            print!("{}", label);
+            print!("{}  [fail={}]", label, self.nodes[child_idx].fail);
 
             if let Some(v) = self.nodes[child_idx].value {
                 print!("  [value = {}]", v);
@@ -75,4 +117,6 @@ impl Trie {
         }
 
     }
+
+
 }

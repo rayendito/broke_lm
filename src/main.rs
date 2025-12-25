@@ -49,6 +49,7 @@ fn train_trie() -> Result<()> {
     for (ngram, count) in &model {
         trie.insert(ngram, *count);
     }
+    trie.build_failures();
     trie.debug_print();
     Ok(())
 }
