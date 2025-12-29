@@ -1,14 +1,10 @@
 use anyhow::Result;
-use broke_lm::Trie;
 use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
-
-mod train_utils;
-use train_utils::{TrainConfig, add_to_ngram_table, export_hashmap};
-
-mod query_utils;
-use query_utils::load_model_hashmap;
+use broke_lm::train_utils::{TrainConfig, add_to_ngram_table, export_hashmap, export_trie};
+use broke_lm::query_utils::load_model_hashmap;
+use broke_lm::Trie;
 
 #[derive(Parser)]
 struct Cli {
@@ -28,11 +24,7 @@ enum Commands {
     },
 }
 
-fn train_hashmap() -> Result<()> {
-    let train_config_raw = fs::read_to_string("train_config.toml")?;
-    let train_cfg: TrainConfig = toml::from_str(&train_config_raw)?;
-    println!("Loaded config {:?}", train_cfg);
-
+fn train_hashmap(train_cfg: &TrainConfig) -> Result<()> {
     // python one liners don't work because someone needs to own the thing always
     let contents = fs::read_to_string(&train_cfg.data_path)?;
     let data_raw = contents.lines().filter(|line| !line.trim().is_empty());
@@ -46,20 +38,26 @@ fn train_hashmap() -> Result<()> {
     export_hashmap(&ngram_table, &train_cfg.model_name)
 }
 
-fn train_trie() -> Result<()> {
+fn train_trie(train_cfg: &TrainConfig) -> Result<()> {
     let model: HashMap<Vec<String>, usize> = load_model_hashmap()?; // get grams from hashmap
     let mut trie = Trie::new();
     for (ngram, count) in &model {
         trie.insert(ngram, *count);
     }
     trie.build_failures();
-    trie.debug_print();
-    Ok(())
+    export_trie(&trie, &train_cfg.model_name)
 }
 
 fn query(input_string: &String, backend: &bool) -> Result<f32> {
-    println!("{}", input_string);
-    println!("{}", backend);
+    println!("{:?}", input_string);
+    println!("{:?}", backend);
+    // let mut model = 
+    // match backend {
+    //     true => {
+    //         // model is from the 
+    //     }
+    //     false
+    // }
     Ok(6.7)
 }
 
@@ -67,11 +65,15 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
     match &cli.command {
         Commands::Train {} => {
+            let train_config_raw = fs::read_to_string("train_config.toml")?;
+            let train_cfg: TrainConfig = toml::from_str(&train_config_raw)?;
+            println!("Loaded config {:?}", train_cfg);
             println!("Training/estimating language model...");
+            
             println!("Training hashmap");
-            let _ = train_hashmap();
+            let _ = train_hashmap(&train_cfg);
             println!("Training trie");
-            let _ = train_trie();
+            let _ = train_trie(&train_cfg);
         }
         Commands::Query {
             prompt,

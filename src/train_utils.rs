@@ -1,6 +1,7 @@
 use anyhow::Result;
 use serde::Deserialize;
 use std::collections::HashMap;
+use crate::trie::Trie;
 
 #[derive(Deserialize, Debug)]
 pub struct TrainConfig {
@@ -51,8 +52,17 @@ pub fn export_hashmap(
     let json_str = serde_json::to_string_pretty(&exportable)?;
     std::fs::write(format!("{model_name}_hashmap.json"), json_str)?;
 
-    let map_bytes = bincode::serialize(&ngram_table)?;
+    let map_bytes = bincode::serialize(ngram_table)?;
     std::fs::write(format!("{model_name}_hashmap.bin"), map_bytes)?;
 
+    Ok(())
+}
+
+pub fn export_trie(
+    trie: &Trie,
+    model_name: &String,
+) -> Result<()> {
+    let trie_bytes = bincode::serialize(trie)?;
+    std::fs::write(format!("{model_name}_trie.bin"), trie_bytes)?;
     Ok(())
 }
