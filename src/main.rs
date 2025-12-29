@@ -1,8 +1,8 @@
 use anyhow::Result;
+use broke_lm::Trie;
 use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
-use broke_lm::Trie;
 
 mod train_utils;
 use train_utils::{TrainConfig, add_to_ngram_table, export_hashmap};
@@ -22,6 +22,9 @@ enum Commands {
     Query {
         #[arg(long)]
         prompt: String,
+
+        #[arg(short = 'm', long)]
+        use_hashmap: bool, // use hashmap backend
     },
 }
 
@@ -54,14 +57,15 @@ fn train_trie() -> Result<()> {
     Ok(())
 }
 
-fn query(input_string: String) -> Result<f32> {
+fn query(input_string: &String, backend: &bool) -> Result<f32> {
     println!("{}", input_string);
+    println!("{}", backend);
     Ok(6.7)
 }
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
-    match cli.command {
+    match &cli.command {
         Commands::Train {} => {
             println!("Training/estimating language model...");
             println!("Training hashmap");
@@ -69,9 +73,12 @@ fn main() -> Result<()> {
             println!("Training trie");
             let _ = train_trie();
         }
-        Commands::Query { prompt } => {
+        Commands::Query {
+            prompt,
+            use_hashmap,
+        } => {
             println!("Prompt input {}", prompt);
-            let score = query(prompt)?;
+            let score = query(prompt, use_hashmap)?;
             println!("Score is {}", score);
         }
     }

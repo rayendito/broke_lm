@@ -22,7 +22,7 @@ fn append_bos_eos(sentence: &str, n: u8) -> String {
     appended
 }
 
-fn tokenize(sentence: &String) -> Vec<String> {
+pub fn tokenize(sentence: &String) -> Vec<String> {
     sentence.split_whitespace().map(|s| s.to_string()).collect()
 }
 
