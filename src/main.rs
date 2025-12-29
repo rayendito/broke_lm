@@ -3,7 +3,7 @@ use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
 use broke_lm::train_utils::{TrainConfig, add_to_ngram_table, export_hashmap, export_trie};
-use broke_lm::query_utils::load_model_hashmap;
+use broke_lm::query_utils::{load_model_hashmap, load_model_trie};
 use broke_lm::Trie;
 
 #[derive(Parser)]
@@ -51,13 +51,16 @@ fn train_trie(train_cfg: &TrainConfig) -> Result<()> {
 fn query(input_string: &String, backend: &bool) -> Result<f32> {
     println!("{:?}", input_string);
     println!("{:?}", backend);
-    // let mut model = 
-    // match backend {
-    //     true => {
-    //         // model is from the 
-    //     }
-    //     false
-    // }
+    match backend {
+        true => {
+            let model: HashMap<Vec<String>, usize> = load_model_hashmap()?;
+            println!("{:?}", model);
+        }
+        false => {
+            let model: Trie = load_model_trie()?;
+            model.debug_print();
+        }
+    }
     Ok(6.7)
 }
 
