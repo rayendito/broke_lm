@@ -1,6 +1,6 @@
+use crate::trie::Trie;
 use anyhow::Result;
 use std::collections::HashMap;
-use crate::trie::Trie;
 
 pub fn load_model_hashmap() -> Result<HashMap<Vec<String>, usize>> {
     const MODEL_PATH: &str = "model_hashmap.bin";

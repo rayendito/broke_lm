@@ -1,8 +1,8 @@
+use crate::train_utils::tokenize;
 use anyhow::Result;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::collections::VecDeque;
-use crate::train_utils::tokenize;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Trie {
