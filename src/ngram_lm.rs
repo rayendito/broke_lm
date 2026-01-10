@@ -74,7 +74,7 @@ impl NgramLM {
         }
     }
 
-    pub fn estimate_hashmap(&self, input_string: &String) -> Result<f32> {
+    fn estimate_hashmap(&self, input_string: &String) -> Result<f32> {
         let inp_tokenized: Vec<String> = tokenize(input_string);
         println!("Tokenized string");
         println!("{:?}", inp_tokenized);

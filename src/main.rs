@@ -22,24 +22,6 @@ enum Commands {
     },
 }
 
-// fn query(input_string: &String, backend: &bool) -> Result<f32> {
-//     match backend {
-//         true => {
-//             let inp_tokenized: Vec<String> = tokenize(input_string);
-//             let model: HashMap<Vec<String>, usize> = load_model_hashmap()?;
-//             println!("Tokenized string");
-//             println!("{:?}", inp_tokenized);
-//             println!("Query using hashmap");
-//             return Ok(6.7)
-//         }
-//         false => {
-//             let model: Trie = load_model_trie()?;
-//             println!("Query using trie");
-//             model.estimate(input_string)
-//         }
-//     }
-// }
-
 fn main() -> Result<()> {
     // training config
     let cli = Cli::parse();
@@ -51,16 +33,15 @@ fn main() -> Result<()> {
             // instantiating model
             let mut ngram_model = NgramLM::new();
             println!("Loaded config {:?}", train_cfg);
-
             ngram_model.train_models(&train_cfg)?;
-            // ngram_model.estimate_hashmap(&s);
         }
         Commands::Query {
             prompt,
             use_hashmap,
         } => {
-            let mut ngram_model = NgramLM::from_pretrained(&train_cfg.model_name)?;
-            ngram_model.model_trie.debug_print();
+            let ngram_model = NgramLM::from_pretrained(&train_cfg.model_name)?;
+            let score = ngram_model.query(&prompt, &use_hashmap)?;
+            println!("Sequence probability = {}", score)
         }
     }
     Ok(())
