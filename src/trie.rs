@@ -11,7 +11,7 @@ pub struct Trie {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Node {
-    children: HashMap<String, usize>,
+    children: HashMap<usize, usize>,
     fail: usize,
     value: Option<usize>,
 }
@@ -27,7 +27,7 @@ impl Trie {
         Trie { nodes: vec![root] }
     }
 
-    pub fn insert(&mut self, key: &[String], value: usize) {
+    pub fn insert(&mut self, key: &Vec<usize>, value: usize) {
         let mut current = 0; // start at root
         for k in key {
             // need a way to also see if it's the last elemetn, if yes, set Value
@@ -70,7 +70,7 @@ impl Trie {
 
         while let Some(v) = queue.pop_front() {
             let v_fail = self.nodes[v].fail;
-            let transitions: Vec<(String, usize)> = self.nodes[v]
+            let transitions: Vec<(usize, usize)> = self.nodes[v]
                 .children
                 .iter()
                 .map(|(k, &u)| (k.clone(), u))

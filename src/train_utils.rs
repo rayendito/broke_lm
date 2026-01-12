@@ -27,16 +27,26 @@ pub fn tokenize(sentence: &String) -> Vec<String> {
     sentence.split_whitespace().map(|s| s.to_string()).collect()
 }
 
-pub fn add_to_ngram_table(ngram_table: &mut HashMap<Vec<String>, usize>, sentence: &str, n: u8) {
+pub fn add_to_ngram_table(ngram_table: &mut HashMap<Vec<usize>, usize>, vocab_table: &mut HashMap<String, usize>, sentence: &str, n: u8) {
     assert!(n > 0, "n must be at least 1 for n-grams");
 
     let bos_eos_appended: String = append_bos_eos(sentence, n);
     let tokenized: Vec<String> = tokenize(&bos_eos_appended);
 
+    // make everything available in the vocabulary first
+    for tok in &tokenized {
+        get_or_insert_id(vocab_table, tok)
+    }
+
     for gram in tokenized.windows(n as usize) {
-        let key: Vec<String> = gram.to_vec(); // convert &[String] → Vec<String>
+        let key: Vec<usize> = gram.iter().map(|tok| vocab_table[tok]).collect();
         *ngram_table.entry(key).or_insert(0) += 1;
     }
+}
+
+pub fn get_or_insert_id(vocab_table: &mut HashMap<String, usize>, token: &String) {
+    let vocab_len = vocab_table.len();
+    vocab_table.entry(token.to_string()).or_insert(vocab_len);
 }
 
 pub fn export_hashmap(

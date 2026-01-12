@@ -6,22 +6,23 @@ use std::collections::HashMap;
 use std::fs;
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Vocab {
-    vocab: HashMap<String, usize>,
+pub struct Vocab {
+    table: HashMap<String, usize>,
     v_size: usize,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NgramLM {
-    vocab: Vocab,
-    model_hashmap: HashMap<Vec<String>, usize>,
+    // to do: set this to un-pub after debugging/development
+    pub vocab: Vocab,
+    pub model_hashmap: HashMap<Vec<usize>, usize>,
     pub model_trie: Trie,
 }
 
 impl NgramLM {
     pub fn new() -> Self {
         let vocabulary = Vocab {
-            vocab: HashMap::new(),
+            table: HashMap::new(),
             v_size: 0,
         };
 
@@ -46,8 +47,11 @@ impl NgramLM {
         // hash table
         self.model_hashmap = HashMap::new();
         for sentence in data_raw {
-            add_to_ngram_table(&mut self.model_hashmap, sentence, train_cfg.n);
+            add_to_ngram_table(&mut self.model_hashmap, &mut self.vocab.table, sentence, train_cfg.n);
         }
+
+        // vocab is built after hashmap. update the length of vocab here
+        self.vocab.v_size = self.vocab.table.len();
 
         // trie
         self.model_trie = Trie::new();

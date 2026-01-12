@@ -34,6 +34,10 @@ fn main() -> Result<()> {
             let mut ngram_model = NgramLM::new();
             println!("Loaded config {:?}", train_cfg);
             ngram_model.train_models(&train_cfg)?;
+
+            // println!("{:?}", ngram_model.vocab);
+            // println!("{:?}", ngram_model.model_hashmap);
+            // ngram_model.model_trie.debug_print();
         }
         Commands::Query {
             prompt,
